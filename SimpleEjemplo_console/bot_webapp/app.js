@@ -75,7 +75,7 @@ bot.dialog('/preguntarLugar', [
     }
 ]);*/
 
-bot.dialog('/', [
+/*bot.dialog('/', [
     function (session) {
         builder.Prompts.text(session, 'Como te llamas ?');
     },
@@ -97,5 +97,24 @@ bot.dialog('/preguntarLugar', [
     function (session, results) {
         session.endDialogWithResult(results);
     }
+]);*/
+
+// NUEVO EJEMPLO DE COMO ALMACENAR DATOS DEL USUARIO 
+bot.dialog('/', [
+    function (session, results, next) {
+        if (!session.userData.nombre) {
+            builder.Prompts.text(session, 'Como te llamas ?');
+        } else {
+            next();
+        }
+    },
+    function (session, results) {
+        if (results.response) {
+            let msj = results.response;
+            session.userData.nombre = msj;
+        }
+        session.send('Hola ' + session.userData.nombre);
+    }
 ]);
+
 
