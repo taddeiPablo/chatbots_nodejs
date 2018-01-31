@@ -1,0 +1,13 @@
+{
+  "name": "simple-ejemplo_console",
+  "version": "0.0.0",
+  "description": "SimpleEjemplo_console",
+  "main": "app.js",
+  "author": {
+    "name": "PabloT"
+  },
+  "dependencies": {
+    "botbuilder": "^3.14.0",
+    "restify": "^6.3.4"
+  }
+}

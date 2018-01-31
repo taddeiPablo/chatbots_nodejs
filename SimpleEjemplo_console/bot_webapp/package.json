@@ -1,0 +1,13 @@
+{
+  "name": "bot_webapp",
+  "version": "0.0.0",
+  "description": "bot_webapp",
+  "main": "app.js",
+  "author": {
+    "name": "PabloT"
+  },
+  "dependencies": {
+    "botbuilder": "^3.14.0",
+    "restify": "^6.3.4"
+  }
+}
