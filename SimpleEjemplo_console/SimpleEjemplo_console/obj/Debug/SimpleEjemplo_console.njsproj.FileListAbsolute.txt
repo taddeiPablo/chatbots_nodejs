@@ -1,0 +1,2 @@
+C:\Users\PabloT\Documents\GitHub\chatbots_nodejs\SimpleEjemplo_console\SimpleEjemplo_console\obj\Debug\SimpleEjemplo_console.njsproj.CoreCompileInputs.cache
+C:\Users\PabloT\Documents\GitHub\chatbots_nodejs\SimpleEjemplo_console\SimpleEjemplo_console\bin\Microsoft.NodejsTools.WebRole.dll

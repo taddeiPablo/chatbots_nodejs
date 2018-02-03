@@ -99,7 +99,7 @@ bot.dialog('/preguntarLugar', [
     }
 ]);*/
 
-// NUEVO EJEMPLO DE COMO ALMACENAR DATOS DEL USUARIO 
+/* NUEVO EJEMPLO DE COMO ALMACENAR DATOS DEL USUARIO 
 bot.dialog('/', [
     function (session, results, next) {
         if (!session.userData.nombre) {
@@ -115,6 +115,106 @@ bot.dialog('/', [
         }
         session.send('Hola ' + session.userData.nombre);
     }
-]);
+]);*/
+
+/* NUEVO EJEMPLO CON PROMPTS (para pedirle datos al usuario
+bot.dialog('/', [
+    function (session, results, next) {
+        builder.Prompts.text(session, 'Como te llamas ?');
+    },
+    function (session, results) {
+        session.dialogData.nombre = results.response;
+        builder.Prompts.number(session, 'Ok, ' + session.dialogData.nombre + 'Cual es tu edad :');
+    },
+    function (session, results) {
+        session.dialogData.edad = results.response;
+        builder.Prompts.time(session, 'que hora es ?');
+    }
+]);*/
+
+/* EJEMPLOS DE PROMPTS 
+// dialogos con patron de cascada
+bot.dialog('/', [
+    function (session, results, next) {
+        builder.Prompts.text(session, 'Como te llamas ?');
+    },
+    function (session, results) {
+        session.dialogData.nombre = results.response;
+        builder.Prompts.number(session, 'Ok ' + session.dialogData.nombre + 'Cual es tu edad ?');
+    },
+    function (session, results) {
+        session.dialogData.edad = results.response;
+        builder.Prompts.time(session, 'Que Hora es ?');
+    },
+    function (session, results) {
+        session.dialogData.hora = builder.EntityRecognizer.resolveTime([results.response]);
+        builder.Prompts.choice(session, 'Cual prefieres ?', 'MAR|MONTAÑA');
+    },
+    function (session, results) {
+        session.dialogData.preferencia = results.response.entity;
+        builder.Prompts.confirm(session, 'quieres ver un resumen');
+    },
+    function (session, results) {
+        if (results.response) {
+            session.endDialog('Me contaste que tu nombre es' + session.dialogData.nombre + 'Tienes' + session.dialogData.edad);
+        } else {
+            session.endDialog('ADIOS !!');
+        }
+    }
+]);*/
+
+/* EJEMPLO CON CARDS Y CAROUSEL
+// cards
+bot.dialog('/', [
+    function (session) {
+        var heroCard = new builder.HeroCard(session)
+            .title('Esta es una tarjeta de tipo Hero Card')
+            .subtitle('Este es su correspondente subtítulo')
+            .text('Sigan a Marcelo Felman en Twitter: @mfelman')
+            .images([
+                builder.CardImage.create(session, 'https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg')
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, 'https://docs.botframework.com/en-us/', 'Aprende')
+            ])
+        // Adjuntamos la tarjeta al mensaje
+        var msj = new builder.Message(session).addAttachment(heroCard);
+        session.send(msj);
+    }
+]);*/
+
+/* EJEMPLO CON CAROUSEL
+// carousel
+bot.dialog('/', [
+    function (session) {
+        var heroCard1 = new builder.HeroCard(session)
+            .title('Esta es una tarjeta de tipo Hero Card')
+            .subtitle('Este es su correspondente subtítulo')
+            .text('Sigan a Marcelo Felman en Twitter: @mfelman')
+            .images([
+                builder.CardImage.create(session, 'https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg')
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, 'https://docs.botframework.com/en-us/', 'Aprende')
+            ]);
+        var heroCard2 = new builder.HeroCard(session)
+            .title('Esta es una OTRA de tipo Hero Card')
+            .subtitle('Este es su correspondente subtítulo')
+            .text('Sigan (si no lo hicieron) a Marcelo Felman en Twitter: @mfelman')
+            .images([
+                builder.CardImage.create(session, 'https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg')
+            ])
+            .buttons([
+                builder.CardAction.openUrl(session, 'https://docs.botframework.com/en-us/', 'Aprende')
+            ]);
+        // Creamos un array de tarjetas
+        var tarjetas = [heroCard1, heroCard2];
+
+        // Adjuntamos la tarjeta al mensaje
+        var msj = new builder.Message(session).attachmentLayout(builder.AttachmentLayout.carousel).attachments(tarjetas);
+        session.send(msj);
+    }
+]);*/
+
 
 
